@@ -146,8 +146,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "userID=" + userID +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+                ", email='" + email + '\'' + '}';
     }
 }
