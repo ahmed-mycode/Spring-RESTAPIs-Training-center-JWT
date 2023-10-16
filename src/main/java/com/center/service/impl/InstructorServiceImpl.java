@@ -68,6 +68,7 @@ public class InstructorServiceImpl implements InstructorService {
         Instructor instructor = instructorMapper.fromInstructorDTO(instructorDTO);
         instructor.setUser(loadedInstructor.getUser());
         instructor.setCourses(loadedInstructor.getCourses());
+        instructor.setCreatedAt(loadedInstructor.getCreatedAt());
         Instructor updatedInstructor = instructorRepo.save(instructor);
         return instructorMapper.fromInstructor(updatedInstructor);
     }

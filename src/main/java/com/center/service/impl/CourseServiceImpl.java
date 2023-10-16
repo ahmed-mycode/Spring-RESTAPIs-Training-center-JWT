@@ -60,6 +60,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseMapper.fromCourseDTO(courseDTO);
         course.setInstructor(instructor);
         course.setStudents(courseLoaded.getStudents());
+        course.setCreatedAt(courseLoaded.getCreatedAt());
         Course updatedCourse = courseRepo.save(course);
         return courseMapper.fromCourse(updatedCourse);
     }

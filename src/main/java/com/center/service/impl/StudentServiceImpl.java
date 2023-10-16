@@ -65,6 +65,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentMapper.fromStudentDTO(studentDTO);
         student.setUser(loadedStudent.getUser());
         student.setCourses(loadedStudent.getCourses());
+        student.setCreatedAt(loadedStudent.getCreatedAt());
         Student updatedStudent = studentRepo.save(student);
         return studentMapper.fromStudent(updatedStudent);
     }
