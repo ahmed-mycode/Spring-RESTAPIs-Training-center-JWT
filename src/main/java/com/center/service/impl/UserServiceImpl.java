@@ -6,6 +6,7 @@ import com.center.repository.RoleRepo;
 import com.center.repository.UserRepo;
 import com.center.service.UserService;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,10 +15,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo) {
+    public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -27,7 +30,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(String email, String password) {
-        return userRepo.save(new User(email, password));
+        User user = getUserByEmail(email);
+        if (user != null) throw new RuntimeException("User with email: " + email + " already exist");
+        String encodedPassword = passwordEncoder.encode(password);
+        return userRepo.save(new User(email, encodedPassword));
     }
 
     @Override
