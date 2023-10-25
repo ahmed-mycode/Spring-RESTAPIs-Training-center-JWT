@@ -12,4 +12,6 @@ public class JWUtil {
 
     //It is a prefix that a frontend application sends before the token
     public static final String BEARER_PREFIX = "Bearer ";
+
+    public static final String AUTH_HEADER = "Authorization";
 }
