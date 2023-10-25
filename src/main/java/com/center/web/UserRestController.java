@@ -2,13 +2,12 @@ package com.center.web;
 
 import com.center.entity.User;
 import com.center.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin("*")
 public class UserRestController {
 
     private final UserService userService;
@@ -18,7 +17,8 @@ public class UserRestController {
     }
 
     @GetMapping
-    public boolean checkIfEmailExist(@RequestParam(name = "email", defaultValue = "") String email){
+    @PreAuthorize("hasAuthority('Admin')")
+    public boolean checkIfEmailExist(@RequestParam(name = "email", defaultValue = "") String email) {
         return userService.getUserByEmail(email) != null;
     }
 }
